@@ -1,0 +1,25 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #2b2935;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  padding: 20px;
+
+}
+
+.App > div {
+  margin-right: 50px;
+}
+
+.App ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+

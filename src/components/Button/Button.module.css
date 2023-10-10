@@ -1,0 +1,16 @@
+.button {
+  width: 40%;
+  height: 100px;
+  border-radius: 20px;
+  background-color: #6fe1f9;
+  cursor: pointer;
+  color: #2e2d36;
+  font-size: 60px;
+  font-weight: 700;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.disabled {
+  color: #302938;
+  background-color: #467483;
+}
