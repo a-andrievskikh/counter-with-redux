@@ -31,9 +31,10 @@ export const FrameDisplay = ({
   const displayValueStyles = `${s.counterDisplay} ${counterStopNumber ? s.counterStopNumber : ''}`
   const incorrectStartValueStyles = `${incorrectStartValue ? s.incorrectStartValue : ''}`
 
-  console.log('Frame Display Render!')
-  console.log('SET disabled: ', isActiveSetBtn)
-  console.log('Is incorrect value? ', incorrectStartValue)
+  // console.log('Frame Display Render!')
+  // console.log('SET disabled: ', isActiveSetBtn)
+  // console.log('Is incorrect value? ', incorrectStartValue)
+
   return (
     <div className={s.counterDisplay}>
       {

@@ -24,9 +24,9 @@ export const Frame = ({
   }
   const inputSetBtn = () => {
     dispatch(setMinValueAC(inputMinValue))
-    dispatch(setMaxValueAC(inputMinValue))
-    dispatch(setStartValueAC(inputMinValue))
-    dispatch(setCounterValueAC(inputMinValue))
+    dispatch(setMaxValueAC(inputMaxValue))
+    dispatch(setStartValueAC(inputStartValue))
+    dispatch(setCounterValueAC(inputStartValue))
   }
 
   const incorrectStartValue = inputStartValue < inputMinValue || inputStartValue > inputMaxValue

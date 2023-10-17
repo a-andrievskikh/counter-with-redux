@@ -69,6 +69,8 @@ export const App = () => {
     saveState('values', state)
   }, [state])
 
+  console.log(JSON.stringify(state, null, ' '))
+
   return (
     <div className={s.App}>
       {
