@@ -1,5 +1,4 @@
 import s from '../Button/Button.module.css'
-import { StateT } from '../../App'
 
 
 export const Button = ({
@@ -31,6 +30,5 @@ export type ButtonPT = {
   onClickHandler?: () => void
   onClickSetBtnHandler?: (value: boolean) => void
   disabled: boolean
-  state?: StateT
   inputSetBtn?: () => void
 }

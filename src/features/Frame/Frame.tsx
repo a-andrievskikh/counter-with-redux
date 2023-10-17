@@ -1,11 +1,13 @@
 import s from './Frame.module.css'
 import { FrameDisplay } from './FrameDisplay/FrameDisplay'
 import { FrameMenu } from './FrameMenu/FrameMenu'
-import { StateT, ViewsT } from '../../App'
+import { ViewsT } from '../../app/App'
+import { useDispatch } from 'react-redux'
+import { setMinValueAC, setMaxValueAC, setStartValueAC, setCounterValueAC } from './frame-reducer'
 
 
 export const Frame = ({
-                        view, state, isActiveSetBtn, setIsActiveSetBtn,
+                        view, isActiveSetBtn, setIsActiveSetBtn,
                         inputMinValue,
                         inputMaxValue,
                         inputStartValue,
@@ -15,16 +17,16 @@ export const Frame = ({
                         setInputStartValue,
                         setInputCounterValue,
                       }: FramePT) => {
-  const { controls } = state
+  const dispatch = useDispatch()
 
   const onClickSetBtnHandler = (value: boolean) => {
     setIsActiveSetBtn(value)
   }
   const inputSetBtn = () => {
-    controls.setMinValue(inputMinValue)
-    controls.setMaxValue(inputMaxValue)
-    controls.setStartValue(inputStartValue)
-    controls.setCounterValue(inputCounterValue)
+    dispatch(setMinValueAC(inputMinValue))
+    dispatch(setMaxValueAC(inputMinValue))
+    dispatch(setStartValueAC(inputMinValue))
+    dispatch(setCounterValueAC(inputMinValue))
   }
 
   const incorrectStartValue = inputStartValue < inputMinValue || inputStartValue > inputMaxValue
@@ -32,7 +34,6 @@ export const Frame = ({
   return (
     <div className={s.main}>
       <FrameDisplay view={view}
-                    state={state}
                     isActiveSetBtn={isActiveSetBtn}
                     setIsActiveSetBtn={setIsActiveSetBtn}
                     onClickSetBtnHandler={onClickSetBtnHandler}
@@ -48,7 +49,6 @@ export const Frame = ({
                     setInputCounterValue={setInputCounterValue}
       />
       <FrameMenu view={view}
-                 state={state}
                  isActiveSetBtn={isActiveSetBtn}
                  onClickSetBtnHandler={onClickSetBtnHandler}
                  incorrectStartValue={incorrectStartValue}
@@ -61,7 +61,6 @@ export const Frame = ({
 // Types
 export type FramePT = {
   view: ViewsT
-  state: StateT
   isActiveSetBtn: boolean
   setIsActiveSetBtn: (value: boolean) => void
   inputMinValue: number

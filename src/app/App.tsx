@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react'
 import s from './App.module.css'
-import { Frame } from './components/Frame/Frame'
-import { restoreState, saveState } from './utils/local-storage'
+import { Frame } from '../features/Frame/Frame'
+import { restoreState, saveState } from '../utils/local-storage'
+import { useSelector } from 'react-redux'
+import { AppRootStateT } from './store'
+import { CounterT } from '../features/Frame/frame-reducer'
 
 
 export const App = () => {
+  const state = useSelector<AppRootStateT, CounterT>(s => s.frame)
+  restoreState('values', state)
   const frames: FramesT[] = [
     { view: 'settings' },
     { view: 'counter' },
   ]
-  const [state, setState] = useState<StateT>({
+
+  /*const [state, setState] = useState<StateT>({
       values: restoreState('values', {
         counterValue: 0,
         minValue: 0,
@@ -50,17 +56,18 @@ export const App = () => {
         },
       },
     },
-  )
+  )*/
+
   const [isActiveSetBtn, setIsActiveSetBtn] = useState<boolean>(true)
 
-  const [inputMinValue, setInputMinValue] = useState<number>(state.values.minValue)
-  const [inputMaxValue, setInputMaxValue] = useState<number>(state.values.maxValue)
-  const [inputStartValue, setInputStartValue] = useState<number>(state.values.startValue)
-  const [inputCounterValue, setInputCounterValue] = useState<number>(state.values.counterValue)
+  const [inputMinValue, setInputMinValue] = useState<number>(state.minValue)
+  const [inputMaxValue, setInputMaxValue] = useState<number>(state.maxValue)
+  const [inputStartValue, setInputStartValue] = useState<number>(state.startValue)
+  const [inputCounterValue, setInputCounterValue] = useState<number>(state.counterValue)
 
   useEffect(() => {
-    saveState('values', state.values)
-  }, [state.values])
+    saveState('values', state)
+  }, [state])
 
   return (
     <div className={s.App}>
@@ -68,7 +75,6 @@ export const App = () => {
         frames.map(f =>
           <Frame key={f.view}
                  view={f.view}
-                 state={state}
                  isActiveSetBtn={isActiveSetBtn}
                  setIsActiveSetBtn={setIsActiveSetBtn}
                  inputMinValue={inputMinValue}
@@ -89,7 +95,7 @@ export const App = () => {
 // Types
 export type ViewsT = 'settings' | 'counter'
 export type FramesT = { view: ViewsT }
-export type StateT = {
+/*export type StateT = {
   values: ValuesT
   controls: ControlsT
 }
@@ -108,4 +114,4 @@ export type ControlsT = {
   setMinValue: (value: number) => void
   setMaxValue: (value: number) => void
   setStartValue: (value: number) => void
-}
+}*/

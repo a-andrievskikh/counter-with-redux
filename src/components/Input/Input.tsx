@@ -1,11 +1,14 @@
 import s from './Input.module.css'
-import { StateT, ViewsT } from '../../App'
+import { ViewsT } from '../../app/App'
 import { ChangeEvent } from 'react'
-import { InputT, InputTypeValuesT } from '../Frame/FrameDisplay/FrameDisplay'
+import { InputT, InputTypeValuesT } from '../../features/Frame/FrameDisplay/FrameDisplay'
+import { useSelector } from 'react-redux'
+import { AppRootStateT } from '../../app/store'
+import { CounterT } from '../../features/Frame/frame-reducer'
 
 
 export const Input = ({
-                        input, state, onClickSetBtnHandler,
+                        input, onClickSetBtnHandler,
                         incorrectStartValue,
                         inputMinValue,
                         inputMaxValue,
@@ -15,7 +18,8 @@ export const Input = ({
                         setInputStartValue,
                         setInputCounterValue,
                       }: InputPT) => {
-  const { minValue, maxValue } = state.values
+  const state = useSelector<AppRootStateT, CounterT>(s => s.frame)
+  const { minValue, maxValue } = state
 
   const wrongValues =
     (input.type === 'min' && minValue > maxValue) ||
@@ -63,7 +67,6 @@ export const Input = ({
 export type InputPT = {
   input: InputT
   view: ViewsT
-  state: StateT
   isActiveSet: boolean
   setIsActiveSetBtn: (value: boolean) => void
   onClickSetBtnHandler: (value: boolean) => void

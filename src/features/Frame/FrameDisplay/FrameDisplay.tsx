@@ -1,10 +1,13 @@
 import s from './FrameDisplay.module.css'
-import { Input } from '../../Input/Input'
-import { StateT, ViewsT } from '../../../App'
+import { Input } from '../../../components/Input/Input'
+import { ViewsT } from '../../../app/App'
+import { useSelector } from 'react-redux'
+import { AppRootStateT } from '../../../app/store'
+import { CounterT } from '../frame-reducer'
 
 
 export const FrameDisplay = ({
-                               view, state, isActiveSetBtn, setIsActiveSetBtn,
+                               view, isActiveSetBtn, setIsActiveSetBtn,
                                onClickSetBtnHandler, incorrectStartValue, inputSetBtn,
                                inputMinValue,
                                inputMaxValue,
@@ -15,8 +18,10 @@ export const FrameDisplay = ({
                                setInputStartValue,
                                setInputCounterValue,
                              }: FrameDisplayPT) => {
+  const state = useSelector<AppRootStateT, CounterT>(s => s.frame)
 
-  const { counterValue, minValue, maxValue } = state.values
+  const { counterValue, minValue, maxValue } = state
+
   const inputs: InputT[] = [
     { type: 'min', title: 'min value' },
     { type: 'max', title: 'max value' },
@@ -39,7 +44,6 @@ export const FrameDisplay = ({
                   <Input key={i.type}
                          input={i}
                          view={view}
-                         state={state}
                          isActiveSet={isActiveSetBtn}
                          setIsActiveSetBtn={setIsActiveSetBtn}
                          onClickSetBtnHandler={onClickSetBtnHandler}
@@ -76,7 +80,6 @@ export const FrameDisplay = ({
 // Types
 export type FrameDisplayPT = {
   view: ViewsT
-  state: StateT
   isActiveSetBtn: boolean
   setIsActiveSetBtn: (value: boolean) => void
   onClickSetBtnHandler: (value: boolean) => void
