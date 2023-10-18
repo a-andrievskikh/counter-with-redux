@@ -3,7 +3,7 @@ import { FrameDisplay } from './FrameDisplay/FrameDisplay'
 import { FrameMenu } from './FrameMenu/FrameMenu'
 import { ViewsT } from '../../app/App'
 import { useDispatch } from 'react-redux'
-import { setMinValueAC, setMaxValueAC, setStartValueAC, setCounterValueAC } from './frame-reducer'
+import { setMinValueAC, setMaxValueAC, setStartValueAC, setCounterValueAC, resValueAC } from './frame-reducer'
 
 
 export const Frame = ({
@@ -17,16 +17,18 @@ export const Frame = ({
                         setInputStartValue,
                         setInputCounterValue,
                       }: FramePT) => {
+
   const dispatch = useDispatch()
 
   const onClickSetBtnHandler = (value: boolean) => {
     setIsActiveSetBtn(value)
   }
-  const inputSetBtn = () => {
+  const inputValuesSetBtn = () => {
     dispatch(setMinValueAC(inputMinValue))
     dispatch(setMaxValueAC(inputMaxValue))
     dispatch(setStartValueAC(inputStartValue))
     dispatch(setCounterValueAC(inputStartValue))
+    dispatch(resValueAC())
   }
 
   const incorrectStartValue = inputStartValue < inputMinValue || inputStartValue > inputMaxValue
@@ -38,7 +40,6 @@ export const Frame = ({
                     setIsActiveSetBtn={setIsActiveSetBtn}
                     onClickSetBtnHandler={onClickSetBtnHandler}
                     incorrectStartValue={incorrectStartValue}
-                    inputSetBtn={inputSetBtn}
                     inputMinValue={inputMinValue}
                     inputMaxValue={inputMaxValue}
                     inputStartValue={inputStartValue}
@@ -52,7 +53,7 @@ export const Frame = ({
                  isActiveSetBtn={isActiveSetBtn}
                  onClickSetBtnHandler={onClickSetBtnHandler}
                  incorrectStartValue={incorrectStartValue}
-                 inputSetBtn={inputSetBtn}
+                 inputValuesSetBtn={inputValuesSetBtn}
       />
     </div>
   )

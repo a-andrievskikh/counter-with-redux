@@ -3,13 +3,13 @@ import s from '../Button/Button.module.css'
 
 export const Button = ({
                          title, isActiveSetBtn, onClickHandler,
-                         onClickSetBtnHandler, disabled, inputSetBtn,
+                         onClickSetBtnHandler, disabled, inputValuesSetBtn,
                        }: ButtonPT) => {
 
   const buttonStyles = `${s.button} ${disabled ? s.disabled : ''}`
   const handleClick =
     title === 'SET' ? () => {
-      inputSetBtn?.()
+      inputValuesSetBtn?.()
       onClickSetBtnHandler?.(!isActiveSetBtn)
     } : onClickHandler
 
@@ -30,5 +30,5 @@ export type ButtonPT = {
   onClickHandler?: () => void
   onClickSetBtnHandler?: (value: boolean) => void
   disabled: boolean
-  inputSetBtn?: () => void
+  inputValuesSetBtn?: () => void
 }

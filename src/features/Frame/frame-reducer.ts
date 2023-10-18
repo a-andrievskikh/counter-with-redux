@@ -7,7 +7,7 @@ const SET_MAX_VALUE = 'SET-MAX-VALUE'
 const SET_START_VALUE = 'SET-START-VALUE'
 const SET_COUNTER_VALUE = 'SET-COUNTER-VALUE'
 
-const initialState: CounterT = {
+export const initialState: ValuesT = {
   counterValue: 0,
   resetValue: 0,
   minValue: 0,
@@ -15,8 +15,7 @@ const initialState: CounterT = {
   startValue: 0,
 }
 
-
-export const frameReducer = (state: CounterT = initialState, action: FramesActionsT): CounterT => {
+export const frameReducer = (state: ValuesT = initialState, action: FrameActionsT): ValuesT => {
   switch (action.type) {
     case INC_VALUE: {
       return { ...state, counterValue: state.counterValue + 1 }
@@ -25,7 +24,7 @@ export const frameReducer = (state: CounterT = initialState, action: FramesActio
       return { ...state, counterValue: state.counterValue - 1 }
     }
     case RES_VALUE: {
-      return { ...state, counterValue: state.startValue }
+      return { ...state, resetValue: state.startValue }
     }
     case SET_MIN_VALUE: {
       return { ...state, minValue: action.value }
@@ -57,7 +56,7 @@ export const setStartValueAC = (value: number) => ({ type: SET_START_VALUE, valu
 
 
 // Types
-export type CounterT = {
+export type ValuesT = {
   counterValue: number,
   resetValue: number,
   minValue: number,
@@ -65,7 +64,7 @@ export type CounterT = {
   startValue: number,
 }
 
-export type FramesActionsT =
+export type FrameActionsT =
   ReturnType<typeof incValueAC> |
   ReturnType<typeof decValueAC> |
   ReturnType<typeof resValueAC> |

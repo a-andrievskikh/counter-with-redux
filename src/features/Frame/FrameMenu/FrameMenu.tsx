@@ -3,34 +3,28 @@ import { Button } from '../../../components/Button/Button'
 import { ViewsT } from '../../../app/App'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateT } from '../../../app/store'
-import { CounterT, decValueAC, incValueAC, resValueAC } from '../frame-reducer'
+import { ValuesT, decValueAC, incValueAC, resValueAC, setCounterValueAC } from '../frame-reducer'
 
 
 export const FrameMenu = ({
                             view, isActiveSetBtn,
-                            onClickSetBtnHandler, incorrectStartValue, inputSetBtn,
+                            onClickSetBtnHandler, incorrectStartValue, inputValuesSetBtn,
                           }: FrameMenuPT) => {
-  const state = useSelector<AppRootStateT, CounterT>(s => s.frame)
+
+  const { counterValue, minValue, maxValue, resetValue, startValue } =
+    useSelector<AppRootStateT, ValuesT>(s => s.frame)
   const dispatch = useDispatch()
 
-  const getButtonStates = (state: CounterT, isActiveSetBtn: boolean, incorrectStartValue: boolean) => {
-    const decButtonDisabled =
-      !isActiveSetBtn || state.counterValue <= state.minValue || state.startValue <= state.minValue
-    const incButtonDisabled =
-      !isActiveSetBtn || state.counterValue >= state.maxValue || state.startValue >= state.maxValue
-    const resButtonDisabled =
-      !isActiveSetBtn || state.counterValue === state.startValue
-    const setButtonDisabled = isActiveSetBtn || incorrectStartValue
+  const decButtonDisabled =
+    !isActiveSetBtn || counterValue <= minValue || startValue <= minValue
 
-    return { decButtonDisabled, incButtonDisabled, resButtonDisabled, setButtonDisabled }
-  }
+  const incButtonDisabled =
+    !isActiveSetBtn || counterValue >= maxValue || startValue >= maxValue
 
-  const {
-    decButtonDisabled,
-    incButtonDisabled,
-    resButtonDisabled,
-    setButtonDisabled,
-  } = getButtonStates(state, isActiveSetBtn, incorrectStartValue)
+  const resButtonDisabled =
+    !isActiveSetBtn || counterValue === startValue
+
+  const setButtonDisabled = isActiveSetBtn || incorrectStartValue
 
   return (
     <div className={s.counterMenu}>
@@ -40,15 +34,22 @@ export const FrameMenu = ({
                   isActiveSetBtn={isActiveSetBtn}
                   onClickSetBtnHandler={onClickSetBtnHandler}
                   disabled={setButtonDisabled}
-                  inputSetBtn={inputSetBtn}
+                  inputValuesSetBtn={inputValuesSetBtn}
           />
           :
           <>
-            <Button title={'DEC'} onClickHandler={() => dispatch(decValueAC())}
+            <Button title={'DEC'}
+                    onClickHandler={() => dispatch(decValueAC())}
                     disabled={decButtonDisabled} />
-            <Button title={'RESET'} onClickHandler={() => dispatch(resValueAC())}
+            <Button title={'RESET'}
+                    onClickHandler={() => {
+                      dispatch(resValueAC())
+                      dispatch(setCounterValueAC(resetValue))
+                    }
+                    }
                     disabled={resButtonDisabled || incorrectStartValue} />
-            <Button title={'INC'} onClickHandler={() => dispatch(incValueAC())}
+            <Button title={'INC'}
+                    onClickHandler={() => dispatch(incValueAC())}
                     disabled={incButtonDisabled} />
           </>
       }
@@ -62,5 +63,5 @@ export type FrameMenuPT = {
   isActiveSetBtn: boolean
   onClickSetBtnHandler: (value: boolean) => void
   incorrectStartValue: boolean
-  inputSetBtn: () => void
+  inputValuesSetBtn: () => void
 }

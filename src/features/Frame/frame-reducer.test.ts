@@ -1,14 +1,14 @@
 import {
-  CounterT,
+  ValuesT,
   decValueAC,
   frameReducer,
   incValueAC,
   resValueAC,
   setCounterValueAC, setMaxValueAC,
-  setMinValueAC,
+  setMinValueAC, setStartValueAC,
 } from './frame-reducer'
 
-let startState: CounterT
+let startState: ValuesT
 
 beforeEach(() => {
   startState = {
@@ -54,4 +54,10 @@ test('counter value should be equal to one', () => {
   const endState = frameReducer(startState, setCounterValueAC(1))
 
   expect(endState.counterValue).toBe(1)
+})
+
+test('start value should be equal to one', () => {
+  const endState = frameReducer(startState, setStartValueAC(1))
+
+  expect(endState.startValue).toBe(1)
 })
