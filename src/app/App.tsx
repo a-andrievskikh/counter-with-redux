@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import s from './App.module.css'
-import { Frame } from '../features/Frame/Frame'
+import { Frame } from 'features/Frame/Frame'
 import { useSelector } from 'react-redux'
 import { AppRootStateT } from './store'
-import { ValuesT } from '../features/Frame/frame-reducer'
+import { ValuesT } from 'features/Frame/frame-reducer'
 
 
 export const App = () => {

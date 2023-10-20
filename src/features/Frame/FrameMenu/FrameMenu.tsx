@@ -1,8 +1,8 @@
 import s from './FrameMenu.module.css'
-import { Button } from '../../../components/Button/Button'
-import { ViewsT } from '../../../app/App'
+import { Button } from 'components/Button/Button'
+import { ViewsT } from 'app/App'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateT } from '../../../app/store'
+import { AppRootStateT } from 'app/store'
 import { ValuesT, decValueAC, incValueAC, resValueAC, setCounterValueAC } from '../frame-reducer'
 
 

@@ -1,10 +1,10 @@
 import s from './Input.module.css'
-import { ViewsT } from '../../app/App'
+import { ViewsT } from 'app/App'
 import { ChangeEvent } from 'react'
-import { InputT } from '../../features/Frame/FrameDisplay/FrameDisplay'
+import { InputT } from 'features/Frame/FrameDisplay/FrameDisplay'
 import { useSelector } from 'react-redux'
-import { AppRootStateT } from '../../app/store'
-import { ValuesT } from '../../features/Frame/frame-reducer'
+import { AppRootStateT } from 'app/store'
+import { ValuesT } from 'features/Frame/frame-reducer'
 
 
 export const Input = ({

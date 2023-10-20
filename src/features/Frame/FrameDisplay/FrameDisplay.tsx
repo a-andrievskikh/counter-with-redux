@@ -1,8 +1,8 @@
 import s from './FrameDisplay.module.css'
-import { Input } from '../../../components/Input/Input'
-import { ViewsT } from '../../../app/App'
+import { Input } from 'components/Input/Input'
+import { ViewsT } from 'app/App'
 import { useSelector } from 'react-redux'
-import { AppRootStateT } from '../../../app/store'
+import { AppRootStateT } from 'app/store'
 import { ValuesT } from '../frame-reducer'
 
 
