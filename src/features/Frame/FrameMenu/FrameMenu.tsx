@@ -1,9 +1,8 @@
 import s from './FrameMenu.module.css'
 import { Button } from 'components/Button/Button'
-import { ViewsT } from 'app/App'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateT } from 'app/store'
-import { ValuesT, decValueAC, incValueAC, resValueAC, setCounterValueAC } from '../frame-reducer'
+import { AppRootState } from 'app/store'
+import { decValueAC, incValueAC, resValueAC, setCounterValueAC, ViewsT } from 'features/Frame/counter-reducer'
 
 
 export const FrameMenu = ({
@@ -11,8 +10,13 @@ export const FrameMenu = ({
                             onClickSetBtnHandler, incorrectStartValue, inputValuesSetBtn,
                           }: FrameMenuPT) => {
 
-  const { counterValue, minValue, maxValue, resetValue, startValue } =
-    useSelector<AppRootStateT, ValuesT>(s => s.frame)
+  const counterValue = useSelector<AppRootState, number>(s => s.counter.values.counterValue)
+  const minValue = useSelector<AppRootState, number>(s => s.counter.values.minValue)
+  const maxValue = useSelector<AppRootState, number>(s => s.counter.values.maxValue)
+  const resetValue = useSelector<AppRootState, number>(s => s.counter.values.resetValue)
+  const startValue = useSelector<AppRootState, number>(s => s.counter.values.startValue)
+
+
   const dispatch = useDispatch()
 
   const decButtonDisabled =
@@ -27,7 +31,7 @@ export const FrameMenu = ({
   const setButtonDisabled = isActiveSetBtn || incorrectStartValue
 
   return (
-    <div className={s.counterMenu}>
+    <div className={s.menu}>
       {
         view === 'settings' ?
           <Button title={'SET'}

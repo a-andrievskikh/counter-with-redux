@@ -1,63 +1,73 @@
 import {
-  ValuesT,
   decValueAC,
-  frameReducer,
+  counterReducer,
   incValueAC,
   resValueAC,
   setCounterValueAC, setMaxValueAC,
-  setMinValueAC, setStartValueAC,
-} from './frame-reducer'
+  setMinValueAC, setStartValueAC, CounterStateT,
+} from 'features/Frame/counter-reducer'
 
-let startState: ValuesT
+let startState: CounterStateT
 
 beforeEach(() => {
   startState = {
-    counterValue: 0,
-    minValue: 0,
-    maxValue: 0,
-    startValue: 0,
-    resetValue: 0,
+    values: {
+      counterValue: 0,
+      minValue: 0,
+      maxValue: 0,
+      startValue: 0,
+      resetValue: 0,
+    },
+    frames: [
+      { view: 'settings' },
+      { view: 'counter' },
+    ],
+    inputs: [
+      { type: 'min', title: 'min value' },
+      { type: 'max', title: 'max value' },
+      { type: 'start', title: 'start value' },
+    ],
   }
 })
 
 test('counter value should be increased by one', () => {
-  const endState = frameReducer(startState, incValueAC())
+  const endState = counterReducer(startState, incValueAC())
 
-  expect(endState.counterValue).toBe(1)
+  expect(endState.values.counterValue).toBe(1)
 })
 
 test('counter value should be decreased by one', () => {
-  const endState = frameReducer(startState, decValueAC())
+  const endState = counterReducer(startState, decValueAC())
 
-  expect(endState.counterValue).toBe(-1)
+  expect(endState.values.counterValue).toBe(-1)
 })
 
 test('counter value should be equal to the start value', () => {
-  const endState = frameReducer(startState, resValueAC())
+  const endState = counterReducer(startState, resValueAC())
 
-  expect(endState.counterValue).toBe(startState.startValue)
+  expect(endState.values.counterValue).toBe(startState.values.startValue)
 })
 
 test('min value should be equal to one', () => {
-  const endState = frameReducer(startState, setMinValueAC(1))
+  const endState = counterReducer(startState, setMinValueAC(1))
 
-  expect(endState.minValue).toBe(1)
+  expect(endState.values.minValue).toBe(1)
 })
 
 test('max value should be equal to one', () => {
-  const endState = frameReducer(startState, setMaxValueAC(1))
+  const endState = counterReducer(startState, setMaxValueAC(1))
 
-  expect(endState.maxValue).toBe(1)
+  expect(endState.values.maxValue).toBe(1)
 })
 
 test('counter value should be equal to one', () => {
-  const endState = frameReducer(startState, setCounterValueAC(1))
+  const endState = counterReducer(startState, setCounterValueAC(1))
 
-  expect(endState.counterValue).toBe(1)
+  expect(endState.values.counterValue).toBe(1)
 })
 
 test('start value should be equal to one', () => {
-  const endState = frameReducer(startState, setStartValueAC(1))
+  const endState = counterReducer(startState, setStartValueAC(1))
 
-  expect(endState.startValue).toBe(1)
+  expect(endState.values.startValue).toBe(1)
 })

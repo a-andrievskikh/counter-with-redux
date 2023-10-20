@@ -1,10 +1,8 @@
 import s from './Input.module.css'
-import { ViewsT } from 'app/App'
 import { ChangeEvent } from 'react'
-import { InputT } from 'features/Frame/FrameDisplay/FrameDisplay'
 import { useSelector } from 'react-redux'
-import { AppRootStateT } from 'app/store'
-import { ValuesT } from 'features/Frame/frame-reducer'
+import { AppRootState } from 'app/store'
+import { InputT, InputTypesValuesT, ViewsT } from 'features/Frame/counter-reducer'
 
 
 export const Input = ({
@@ -14,29 +12,31 @@ export const Input = ({
                         setInputMinValue, setInputMaxValue, setInputStartValue, setInputCounterValue,
                       }: InputPT) => {
 
-  const { minValue, maxValue } =
-    useSelector<AppRootStateT, ValuesT>(s => s.frame)
+  const minValue = useSelector<AppRootState, number>(s => s.counter.values.minValue)
+  const maxValue = useSelector<AppRootState, number>(s => s.counter.values.maxValue)
+
+  const inputType: InputTypesValuesT = input.type
 
   const wrongValues =
-    (input.type === 'min' && minValue > maxValue) ||
-    (input.type === 'max' && maxValue < minValue) ||
+    (inputType === 'min' && minValue > maxValue) ||
+    (inputType === 'max' && maxValue < minValue) ||
     incorrectStartValue
 
   const inputStyles = `${s.input}  ${wrongValues ? s.wrongValue : ''}`
 
   const inputValue =
-    input.type === 'min' ? inputMinValue :
-      input.type === 'max' ? inputMaxValue :
+    inputType === 'min' ? inputMinValue :
+      inputType === 'max' ? inputMaxValue :
         inputStartValue
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (input.type === 'min') {
+    if (inputType === 'min') {
       setInputMinValue(Number(e.currentTarget.value))
     }
-    if (input.type === 'max') {
+    if (inputType === 'max') {
       setInputMaxValue(Number(e.currentTarget.value))
     }
-    if (input.type === 'start') {
+    if (inputType === 'start') {
       setInputStartValue(Number(e.currentTarget.value))
       setInputCounterValue(Number(e.currentTarget.value))
     }

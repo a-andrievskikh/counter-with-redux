@@ -1,9 +1,8 @@
 import s from './FrameDisplay.module.css'
 import { Input } from 'components/Input/Input'
-import { ViewsT } from 'app/App'
 import { useSelector } from 'react-redux'
-import { AppRootStateT } from 'app/store'
-import { ValuesT } from '../frame-reducer'
+import { AppRootState } from 'app/store'
+import { InputT, ViewsT } from 'features/Frame/counter-reducer'
 
 
 export const FrameDisplay = ({
@@ -13,21 +12,17 @@ export const FrameDisplay = ({
                                setInputMinValue, setInputMaxValue, setInputStartValue, setInputCounterValue,
                              }: FrameDisplayPT) => {
 
-  const { counterValue, minValue, maxValue } =
-    useSelector<AppRootStateT, ValuesT>(s => s.frame)
-
-  const inputs: InputT[] = [
-    { type: 'min', title: 'min value' },
-    { type: 'max', title: 'max value' },
-    { type: 'start', title: 'start value' },
-  ]
+  const counterValue = useSelector<AppRootState, number>(s => s.counter.values.counterValue)
+  const minValue = useSelector<AppRootState, number>(s => s.counter.values.minValue)
+  const maxValue = useSelector<AppRootState, number>(s => s.counter.values.maxValue)
+  const inputs = useSelector<AppRootState, InputT[]>(s => s.counter.inputs)
 
   const counterStopNumber = counterValue <= minValue || counterValue >= maxValue
-  const displayValueStyles = `${s.counterDisplay} ${counterStopNumber ? s.counterStopNumber : ''}`
+  const displayValueStyles = `${s.display} ${counterStopNumber ? s.counterStopNumber : ''}`
   const incorrectStartValueStyles = `${incorrectStartValue ? s.incorrectStartValue : ''}`
 
   return (
-    <div className={s.counterDisplay}>
+    <div className={s.display}>
       {
         view === 'settings' ? (
             <>
@@ -83,10 +78,4 @@ export type FrameDisplayPT = {
   setInputMaxValue: (value: number) => void
   setInputStartValue: (value: number) => void
   setInputCounterValue: (value: number) => void
-}
-export type InputTypesValuesT = 'min' | 'max' | 'start'
-export type InputTitlesT = 'min value' | 'max value' | 'start value'
-export type InputT = {
-  type: InputTypesValuesT
-  title: InputTitlesT
 }

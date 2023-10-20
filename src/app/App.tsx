@@ -1,18 +1,14 @@
 import { useState } from 'react'
 import s from './App.module.css'
-import { Frame } from 'features/Frame/Frame'
 import { useSelector } from 'react-redux'
-import { AppRootStateT } from './store'
-import { ValuesT } from 'features/Frame/frame-reducer'
+import { Frame } from 'features/Frame/Frame'
+import { AppRootState } from './store'
+import { FrameT, ValuesT } from 'features/Frame/counter-reducer'
 
 
 export const App = () => {
-  const state = useSelector<AppRootStateT, ValuesT>(s => s.frame)
-
-  const frames: FramesT[] = [
-    { view: 'settings' },
-    { view: 'counter' },
-  ]
+  const state = useSelector<AppRootState, ValuesT>(s => s.counter.values)
+  const frames = useSelector<AppRootState, FrameT[]>(s => s.counter.frames)
 
   const [isActiveSetBtn, setIsActiveSetBtn] = useState<boolean>(true)
 
@@ -45,5 +41,4 @@ export const App = () => {
 }
 
 // Types
-export type ViewsT = 'settings' | 'counter'
-export type FramesT = { view: ViewsT }
+

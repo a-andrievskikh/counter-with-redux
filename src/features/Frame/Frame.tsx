@@ -1,9 +1,14 @@
 import s from './Frame.module.css'
 import { FrameDisplay } from './FrameDisplay/FrameDisplay'
 import { FrameMenu } from './FrameMenu/FrameMenu'
-import { ViewsT } from 'app/App'
 import { useDispatch } from 'react-redux'
-import { setMinValueAC, setMaxValueAC, setStartValueAC, setCounterValueAC, resValueAC } from './frame-reducer'
+import {
+  setMinValueAC,
+  setMaxValueAC,
+  setStartValueAC,
+  setCounterValueAC,
+  resValueAC, ViewsT,
+} from 'features/Frame/counter-reducer'
 
 
 export const Frame = ({

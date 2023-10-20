@@ -1,9 +1,9 @@
 import { combineReducers, legacy_createStore as createStore } from 'redux'
-import { frameReducer } from 'features/Frame/frame-reducer'
+import { counterReducer } from 'features/Frame/counter-reducer'
 import { restoreState, saveState } from 'utils/local-storage'
 
 const rootReducer = combineReducers({
-  frame: frameReducer,
+  counter: counterReducer,
 })
 
 export const store = createStore(
@@ -15,7 +15,7 @@ export const store = createStore(
 )
 
 // Types
-export type AppRootStateT = ReturnType<typeof rootReducer>
+export type AppRootState = ReturnType<typeof rootReducer>
 // export type AppRootActionsT = FrameActionsT
 
 store.subscribe(() => {

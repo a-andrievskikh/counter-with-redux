@@ -4,7 +4,7 @@ import { App } from './App'
 import { store } from './store'
 import { Provider } from 'react-redux'
 
-test('renders learn react link', () => {
+test('App should be rendered', () => {
   render(<Provider store={store}>
     <App />,
   </Provider>)
